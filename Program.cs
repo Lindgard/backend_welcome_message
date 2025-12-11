@@ -1,7 +1,8 @@
-﻿namespace backend_welcome_message;
-
-using System;
+﻿using System;
 using System.Globalization;
+using Spectre.Console;
+
+namespace backend_welcome_message;
 
 class Program
 {
@@ -33,5 +34,17 @@ class Program
             timeOfDay = "Good night";
             break;
        }
+
+       string dayType;
+       switch (now.DayOfWeek)
+       {
+        case DayOfWeek.Saturday or DayOfWeek.Sunday:
+            dayType = "Enjoy your weekend!";
+            break;
+            default:
+            dayType = "Have a great day!";
+            break;            
+       }
+       return $"{timeOfDay}, {formatted}. {dayType}";
     }
 }
