@@ -17,9 +17,9 @@ flowchart TD
     F --> G{Name empty?}
     G -- yes --> H[Set name to Guest]
     G -- no --> I[Keep provided name]
-    H --> J[Determine time-of-day bucket (switch)]
+    H --> J[Determine time-of-day bucket]
     I --> J
-    J --> K[Determine day message (DayOfWeek switch)]
+    J --> K[Determine day message]
     K --> L[Format date/time]
     L --> M[Build Spectre.Console table]
     M --> N[Output table]
