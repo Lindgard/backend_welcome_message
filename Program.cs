@@ -44,7 +44,7 @@ class Program
         {
             case DayOfWeek.Saturday:
             case DayOfWeek.Sunday:
-                dayType = $"Enjoy your {now.ToString("dddd", CultureInfo.InvariantCulture)}! Enjoy your weekend!";
+                dayType = $"Enjoy your {now.ToString("dddd", CultureInfo.InvariantCulture)}!";
                 break;
             default:
                 dayType = $"Have a great {now.ToString("dddd", CultureInfo.InvariantCulture)}!";
