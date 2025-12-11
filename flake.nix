@@ -32,18 +32,24 @@
           DOTNET_CLI_TELEMETRY_OPTOUT = "1";
         };
 
-        apps.default = {
-          type = "app";
-          program =
-            let runner = pkgs.writeShellApplication {
-              name = "run-backend-welcome-message";
-              runtimeInputs = [ dotnet ];
-              text = ''
-                set -euo pipefail
-                dotnet run --project "${self}/backend_welcome_message.csproj" "$@"
-              '';
-            };
-            in "${runner}/bin/run-backend-welcome-message";
+        # Expose a runnable package and wire it to `nix run`
+        packages.default = pkgs.writeShellApplication {
+          name = "run-backend-welcome-message";
+          runtimeInputs = [ dotnet ];
+          text = ''
+            set -euo pipefail
+            cache_root="''${XDG_CACHE_HOME:-$HOME/.cache}/backend-welcome-message"
+            mkdir -p "$cache_root/obj" "$cache_root/bin"
+
+            dotnet run --project "${self}/backend_welcome_message.csproj" \
+              --property:BaseIntermediateOutputPath="$cache_root/obj/" \
+              --property:BaseOutputPath="$cache_root/bin/" \
+              "$@"
+          '';
+        };
+
+        apps.default = flake-utils.lib.mkApp {
+          drv = self.packages.${system}.default;
         };
       });
 }
