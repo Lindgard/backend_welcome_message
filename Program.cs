@@ -10,9 +10,11 @@ class Program
     {
         var now = DateTime.Now;
         
-        var name = AnsiConsole.Ask<string>("What is your [green]name[/]?");
-        if (string.IsNullOrWhiteSpace(name))
-            name = "Guest";
+        var name = AnsiConsole.Prompt(
+            new TextPrompt<string>("What is your [green]name[/]?")
+            .AllowEmpty());
+        
+        name = string.IsNullOrWhiteSpace(name) ? "Guest" : name.Trim();
 
         var table = BuildGreeting(now, name);
         AnsiConsole.Write(table);
