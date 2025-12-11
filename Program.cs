@@ -13,14 +13,12 @@ class Program
         var name = AnsiConsole.Ask<string>("What is your [green]name[/]?");
         if (string.IsNullOrWhiteSpace(name))
             name = "Guest";
-        
-        var greetingText = $"{timeOfDay}, {name}!";
 
-        var table = BuildGreeting(now);
+        var table = BuildGreeting(now, name);
         AnsiConsole.Write(table);
     }
 
-    static Table BuildGreeting(DateTime now)
+    static Table BuildGreeting(DateTime now, string name)
     {
         var formatted = now.ToString("dddd dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
         string timeOfDay;
@@ -56,7 +54,7 @@ class Program
         var table = new Table().Border(TableBorder.Rounded);
         table.AddColumn("[bold]Part[/]");
         table.AddColumn("[bold]Value[/]");
-        table.AddRow($"[aqua]Greeting[/]", $"[aqua]{timeOfDay}[/]");
+        table.AddRow($"[aqua]Greeting[/]", $"[aqua]{timeOfDay}, {name}![/]");
         table.AddRow($"[yellow]Date/Time[/]", $"[yellow]{formatted}[/]");
         table.AddRow($"[green]Day Type[/]", $"[green]{dayType}[/]");
 
