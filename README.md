@@ -8,7 +8,7 @@ This project will be a simple CLI program that gives users a welcome message cus
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Read current time (DateTime.Now)]
+    A[Start] --> B[Read current time]
     B --> C{--at argument provided?}
     C -- yes --> D[Parse provided time]
     C -- no --> E[Use current time]
@@ -17,10 +17,10 @@ flowchart TD
     F --> G{Name empty?}
     G -- yes --> H[Set name to Guest]
     G -- no --> I[Keep provided name]
-    H --> J[Determine time-of-day bucket via switch]
+    H --> J[Determine time-of-day bucket (switch)]
     I --> J
-    J --> K[Determine day message via DayOfWeek switch]
-    K --> L[Format date/time (dd.MM.yyyy HH:mm)]
+    J --> K[Determine day message (DayOfWeek switch)]
+    K --> L[Format date/time]
     L --> M[Build Spectre.Console table]
     M --> N[Output table]
     N --> O[End]
