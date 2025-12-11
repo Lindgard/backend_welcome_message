@@ -49,7 +49,7 @@ nix run
 
 ## Without Nix
 
-- Install .NET SDK 8.
+- Install .NET SDK 10.
 - Run:
 
 ```sh
