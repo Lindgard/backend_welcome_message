@@ -14,7 +14,11 @@
           config = { allowUnfree = true; };
         };
 
-        dotnet = pkgs.dotnet-sdk_8;
+        # Prefer newer SDKs when available; fall back to 8 if the channel lacks them
+        dotnet =
+          if pkgs ? dotnet-sdk_10 then pkgs.dotnet-sdk_10
+          else if pkgs ? dotnet-sdk_9 then pkgs.dotnet-sdk_9
+          else pkgs.dotnet-sdk_8;
       in
       {
         devShells.default = pkgs.mkShell {

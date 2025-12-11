@@ -2,7 +2,7 @@
 
 ## Description
 
-_Fill in a short project description here._
+This project will be a simple CLI program that gives users a welcome message customized to change based on the current time and date.
 
 ## Dev environment (Nix flake)
 
