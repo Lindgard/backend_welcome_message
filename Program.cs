@@ -10,48 +10,50 @@ class Program
     {
         var now = DateTime.Now;
 
-        var greeting = BuildGreeting(now);
-        AnsiConsole.WriteLine(greeting);
+        var table = BuildGreeting(now);
+        AnsiConsole.Write(table);
     }
 
-    static string BuildGreeting(DateTime now)
+    static Table BuildGreeting(DateTime now)
     {
         var formatted = now.ToString("dddd dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
         string timeOfDay;
 
-       switch (now.Hour)
-       {
-        case >= 5 and <= 12:
-            timeOfDay = "Good morning";
-            break;
-        case >= 12 and <= 18:
-            timeOfDay = "Good afternoon";
-            break;
-        case >= 18 and <= 22:
-            timeOfDay = "Good evening";
-            break;
-        default:
-            timeOfDay = "Good night";
-            break;
-       }
-
-       string dayType;
-       switch (now.DayOfWeek)
-       {
-        case DayOfWeek.Saturday or DayOfWeek.Sunday:
-            dayType = "Enjoy your weekend!";
-            break;
+        switch (now.Hour)
+        {
+            case >= 5 and < 12:
+                timeOfDay = "Good morning";
+                break;
+            case >= 12 and < 18:
+                timeOfDay = "Good afternoon";
+                break;
+            case >= 18 and < 22:
+                timeOfDay = "Good evening";
+                break;
             default:
-            dayType = "Have a great day!";
-            break;            
-       }
-       var table = new Table().Border(TableBorder.Rounded);
-       table.AddColumn("[bold]Part[/]");
-       table.AddColumn("[bold]Value[/]");
-       table.AddRow("Greeting", $"[aqua]{timeOfDay}[/];");
-       table.AddRow("Date/Time", $"[yellow]{formatted}[/]");
-       table.AddRow("Day Type", $"[green]{dayType}[/]");
+                timeOfDay = "Good night";
+                break;
+        }
 
-       return table;
+        string dayType;
+        switch (now.DayOfWeek)
+        {
+            case DayOfWeek.Saturday:
+            case DayOfWeek.Sunday:
+                dayType = "Enjoy your weekend!";
+                break;
+            default:
+                dayType = "Have a great day!";
+                break;
+        }
+
+        var table = new Table().Border(TableBorder.Rounded);
+        table.AddColumn("[bold]Part[/]");
+        table.AddColumn("[bold]Value[/]");
+        table.AddRow($"[aqua]Greeting[/]", $"[aqua]{timeOfDay}[/]");
+        table.AddRow($"[yellow]Date/Time[/]", $"[yellow]{formatted}[/]");
+        table.AddRow($"[green]Day Type[/]", $"[green]{dayType}[/]");
+
+        return table;
     }
 }
