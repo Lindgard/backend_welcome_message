@@ -11,7 +11,7 @@ class Program
         var now = DateTime.Now;
 
         var greeting = BuildGreeting(now);
-        Console.WriteLine(greeting);
+        AnsiConsole.WriteLine(greeting);
     }
 
     static string BuildGreeting(DateTime now)
@@ -45,6 +45,13 @@ class Program
             dayType = "Have a great day!";
             break;            
        }
-       return $"{timeOfDay}, {formatted}. {dayType}";
+       var table = new Table().Border(TableBorder.Rounded);
+       table.AddColumn("[bold]Part[/]");
+       table.AddColumn("[bold]Value[/]");
+       table.AddRow("Greeting", $"[aqua]{timeOfDay}[/];");
+       table.AddRow("Date/Time", $"[yellow]{formatted}[/]");
+       table.AddRow("Day Type", $"[green]{dayType}[/]");
+
+       return table;
     }
 }
