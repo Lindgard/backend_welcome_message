@@ -9,6 +9,12 @@ class Program
     static void Main(string[] args)
     {
         var now = DateTime.Now;
+        
+        var name = AnsiConsole.Ask<string>("What is your [green]name[/]?");
+        if (string.IsNullOrWhiteSpace(name))
+            name = "Guest";
+        
+        var greetingText = $"{timeOfDay}, {name}!";
 
         var table = BuildGreeting(now);
         AnsiConsole.Write(table);
